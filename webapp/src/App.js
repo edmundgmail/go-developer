@@ -2,6 +2,7 @@ import React from 'react';
 import './App.css';
 import logo from './logo.svg';
 import {Tech} from "./tech/Tech";
+import Chat from "./Chat"
 
 export function App() {
     return (
@@ -16,7 +17,7 @@ export function App() {
                 and change the corresponding code
                 in <code>webapp/src/tech/Tech.js
                 </code> and <code>server/web/app.go</code>.
-                <Tech/>
+                <Chat/>
             </div>
         </div>
     );

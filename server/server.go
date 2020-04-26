@@ -2,12 +2,13 @@ package main
 
 import (
 	"context"
-	"go.mongodb.org/mongo-driver/mongo"
-	"go.mongodb.org/mongo-driver/mongo/options"
-	"log"
-	"os"
 	"go-developer/db"
 	"go-developer/web"
+	"log"
+	"os"
+
+	"go.mongodb.org/mongo-driver/mongo"
+	"go.mongodb.org/mongo-driver/mongo/options"
 )
 
 func main() {
@@ -19,7 +20,9 @@ func main() {
 	mongoDB := db.NewMongo(client)
 	// CORS is enabled only in prod profile
 	cors := os.Getenv("profile") == "prod"
-	app := web.NewApp(mongoDB, cors)
+	r := web.NewRoom()
+	app := web.NewApp(mongoDB, cors, r)
+	go r.Run()
 	err = app.Serve()
 	log.Println("Error", err)
 }

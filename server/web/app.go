@@ -2,9 +2,9 @@ package web
 
 import (
 	"encoding/json"
+	"go-developer/db"
 	"log"
 	"net/http"
-	"go-developer/db"
 )
 
 type App struct {
@@ -12,17 +12,19 @@ type App struct {
 	handlers map[string]http.HandlerFunc
 }
 
-func NewApp(d db.DB, cors bool) App {
+func NewApp(d db.DB, cors bool, r *room) App {
 	app := App{
 		d:        d,
 		handlers: make(map[string]http.HandlerFunc),
 	}
 	techHandler := app.GetTechnologies
+
 	if !cors {
 		techHandler = disableCors(techHandler)
 	}
 	app.handlers["/api/technologies"] = techHandler
 	app.handlers["/"] = http.FileServer(http.Dir("/webapp")).ServeHTTP
+	app.handlers["/room"] = r.ServeHTTP
 	return app
 }
 

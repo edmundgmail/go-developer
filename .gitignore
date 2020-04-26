@@ -5,7 +5,8 @@
 *.dylib
 *.test
 *.out
-
+*.sum
+server/__debug_bin
 webapp/node_modules
 webapp/build
 webapp/npm-debug.log*
